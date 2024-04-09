@@ -1,0 +1,32 @@
+.sidebar-form {
+  display: block;
+  height: 100%;
+  position: relative;
+
+  .top-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .clear-btn {
+      padding-right: 0;
+    }
+  }
+
+  .submit-wrapper {
+    width: 100%;
+    position: relative;
+    margin: 20px;
+    
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 960px) { // 'md' breakpoint in Material-UI
+    .sidebar-form {
+      .submit-wrapper {
+        bottom: 50px;
+        position: absolute;
+      }
+    }
+  }
