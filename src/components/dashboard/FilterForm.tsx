@@ -15,7 +15,6 @@ import { categoryToHumanReadable } from "@/helpers/helpers";
 import "./filter-form.scss";
 import { IFilterFormProps, IFormValues } from "@/interfaces/form.interface";
 
-
 const FilterForm: React.FC<IFilterFormProps> = ({
   categories,
   onSubmit,
@@ -25,7 +24,9 @@ const FilterForm: React.FC<IFilterFormProps> = ({
     selectedProductIDs,
   },
 }) => {
-  const [products, setProducts] = useState<IProduct[]>(selectedCategoryProducts);
+  const [products, setProducts] = useState<IProduct[]>(
+    selectedCategoryProducts
+  );
 
   const fetchProductData = async (category: string) => {
     try {
@@ -34,7 +35,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
       });
       setProducts(productsData.products);
     } catch (error) {
-      throw new Error("Failed")
+      throw new Error("Failed");
     }
   };
 
@@ -56,7 +57,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
     >
       {({ values, isSubmitting, isValid, dirty, resetForm }) => (
         <Form className="sidebar-form">
-          <Box className="top-wrapper" sx={{ pr: 2, pl: 2,pt:4 }}>
+          <Box className="top-wrapper" sx={{ pr: 2, pl: 2, pt: 4 }}>
             <Typography variant="h3">Filter</Typography>
             <Button
               type="button"
@@ -74,7 +75,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
 
           <Field name="selectedCategory">
             {({ field, form }: FieldProps<string>) => (
-              <FormControl sx={{ m: 1, width: "100%", pr: 2 }}>
+              <FormControl className="form-control">
                 <Autocomplete
                   {...field}
                   fullWidth
@@ -108,7 +109,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
           </Field>
           <Field name="selectedProducts">
             {({ field, form }: FieldProps<number[]>) => (
-              <FormControl sx={{ m: 1, width: "100%", pr: 2 }}>
+              <FormControl className="form-control">
                 <Autocomplete
                   {...field}
                   fullWidth

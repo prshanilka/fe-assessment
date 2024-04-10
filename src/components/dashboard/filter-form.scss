@@ -1,6 +1,7 @@
 .sidebar-form {
   display: block;
   height: 100%;
+  width: 100%;
   position: relative;
 
   .top-wrapper {
@@ -19,6 +20,10 @@
     
     display: flex;
     justify-content: center;
+  }
+  .form-control{
+    width: 100%;
+    padding: 10px 20px;
   }
 }
 

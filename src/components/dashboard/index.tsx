@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FilterForm from "./FilterForm";
 import { fetchCategories, fetchAllProducts } from "@/services/api";
-import { Backdrop, CircularProgress, Grid, Paper, styled } from "@mui/material";
+import { Grid, Paper, styled } from "@mui/material";
 import { IProduct } from "@/interfaces/product.interface";
 import Chart from "./Chart";
 import {
@@ -9,6 +9,7 @@ import {
   generatePieChartForCategory,
   generatePieChartOptionsForCategory,
 } from "@/helpers/helpers";
+import { Loader } from "@/components/Loader";
 
 const Dashboard: React.FC = () => {
   const [allProducts, setAllProducts] = useState<IProduct[]>([]);
@@ -46,7 +47,17 @@ const Dashboard: React.FC = () => {
     }, 3000);
   };
 
+  const StyledGraphWrapper = styled(Paper)(({ theme }) => ({
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    [theme.breakpoints.up("md")]: {
+      height: "80vh",
+    },
+  }));
   const StyledPaper = styled(Paper)(({ theme }) => ({
+    display: "flex",
     height: "100%",
     [theme.breakpoints.up("md")]: {
       height: "80vh",
@@ -54,61 +65,54 @@ const Dashboard: React.FC = () => {
   }));
 
   return (
-    <>
-      <Backdrop
-        sx={{
-          color: "#fff",
-          backgroundColor: "#000000fc",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-
-      <Grid container spacing={3} sx={{ pt: 5 }}>
-        <Grid item xs={12} md={4}>
-          <StyledPaper>
-            <FilterForm
-              categories={categories}
-              onSubmit={processData}
-              initValues={{
-                selectedCategory,
-                selectedCategoryProducts,
-                selectedProductIDs,
-              }}
-            />
-          </StyledPaper>
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <StyledPaper>
-            {selectedProductIDs.length > 0 &&
-            selectedCategoryProducts.length > 0 &&
-            selectedCategory ? (
-              <Chart
-                options={generateBarChartOptions(
-                  selectedCategoryProducts.filter((product) =>
-                    selectedProductIDs.includes(product.id)
-                  ),
-                  selectedCategory
-                )}
-              />
-            ) : selectedCategory ? (
-              <Chart
-                options={generatePieChartOptionsForCategory(
-                  selectedCategoryProducts,
-                  selectedCategory
-                )}
-              />
-            ) : (
-              <Chart
-                options={generatePieChartForCategory(allProducts, categories)}
-              />
-            )}
-          </StyledPaper>
-        </Grid>
+    <Grid container spacing={3} sx={{ pt: 5 }}>
+      <Grid item xs={12} md={4}>
+        <StyledPaper>
+          <FilterForm
+            categories={categories}
+            onSubmit={processData}
+            initValues={{
+              selectedCategory,
+              selectedCategoryProducts,
+              selectedProductIDs,
+            }}
+          />
+        </StyledPaper>
       </Grid>
-    </>
+      <Grid item xs={12} md={8}>
+        <StyledGraphWrapper>
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              {selectedProductIDs.length > 0 &&
+              selectedCategoryProducts.length > 0 &&
+              selectedCategory ? (
+                <Chart
+                  options={generateBarChartOptions(
+                    selectedCategoryProducts.filter((product) =>
+                      selectedProductIDs.includes(product.id)
+                    ),
+                    selectedCategory
+                  )}
+                />
+              ) : selectedCategory ? (
+                <Chart
+                  options={generatePieChartOptionsForCategory(
+                    selectedCategoryProducts,
+                    selectedCategory
+                  )}
+                />
+              ) : (
+                <Chart
+                  options={generatePieChartForCategory(allProducts, categories)}
+                />
+              )}
+            </>
+          )}
+        </StyledGraphWrapper>
+      </Grid>
+    </Grid>
   );
 };
 
