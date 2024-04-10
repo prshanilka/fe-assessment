@@ -140,7 +140,7 @@ export const generatePieChartForCategory = (
       type: "pie",
     },
     title: {
-      text: `IProduct count for categories`,
+      text: `Product count for categories`,
     },
     plotOptions: {
       pie: {
@@ -155,7 +155,7 @@ export const generatePieChartForCategory = (
     series: [
       {
         type: "pie",
-        name: "IProduct count",
+        name: "Product count",
         data,
       },
     ],
