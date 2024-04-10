@@ -7,7 +7,7 @@ import { IProduct } from "@/interfaces/product.interface";
  */
 export const fetchCategories = async (): Promise<string[]> => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/products/categories`);
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT || "https://dummyjson.com"}/products/categories`);
     return response.json();
   } catch (error) {
     throw new Error("Fetch Failed");
@@ -21,7 +21,7 @@ export const fetchCategories = async (): Promise<string[]> => {
  */
 export const fetchAllProducts = async (): Promise<{ products: IProduct[] }> => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/products`);
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT || "https://dummyjson.com"}/products`);
     return response.json();
   } catch (error) {
     throw new Error("Fetch Failed");
@@ -41,7 +41,7 @@ export const fetchProductsByCategory = async ({
 }): Promise<{ products: IProduct[] }> => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/products/category/${category}`
+      `${import.meta.env.VITE_API_ENDPOINT || "https://dummyjson.com"}/products/category/${category}`
     );
     return response.json();
   } catch (error) {
