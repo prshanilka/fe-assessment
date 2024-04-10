@@ -57,11 +57,12 @@ const FilterForm: React.FC<IFilterFormProps> = ({
     >
       {({ values, isSubmitting, isValid, dirty, resetForm }) => (
         <Form className="sidebar-form">
-          <Box className="top-wrapper" sx={{ pr: 2, pl: 2, pt: 4 }}>
-            <Typography variant="h3">Filter</Typography>
+          <Box className="top-wrapper" sx={{ pr: 2, pl: 2, pt: 4,mb:3 }}>
+            <Typography variant="h4">Filter</Typography>
             <Button
               type="button"
               className="clear-btn"
+              variant="text"
               onClick={() => {
                 resetForm();
                 setProducts([]);
@@ -143,6 +144,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
               disabled={
                 isSubmitting || !isValid || !dirty || !values.selectedCategory
               }
+              size="large"
               variant="contained"
             >
               Run Report
