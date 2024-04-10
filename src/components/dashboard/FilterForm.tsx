@@ -57,7 +57,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
     >
       {({ values, isSubmitting, isValid, dirty, resetForm }) => (
         <Form className="sidebar-form">
-          <Box className="top-wrapper" sx={{ pr: 2, pl: 2, pt: 4,mb:3 }}>
+          <Box className="top-wrapper" sx={{ pr: 2, pl: 2, pt: 4, mb: 3 }}>
             <Typography variant="h4">Filter</Typography>
             <Button
               type="button"
@@ -78,6 +78,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
             {({ field, form }: FieldProps<string>) => (
               <FormControl className="form-control">
                 <Autocomplete
+                  loading
                   {...field}
                   fullWidth
                   id="tags-outlined"

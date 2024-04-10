@@ -5,9 +5,11 @@ import { IProduct } from "@/interfaces/product.interface";
  * @returns {Promise<string[]>} A promise that resolves to an array of strings representing categories.
  * @throws {Error} If the fetch operation fails.
  */
+const apiEndPointURL =
+  import.meta.env.VITE_API_ENDPOINT || "https://dummyjson.com";
 export const fetchCategories = async (): Promise<string[]> => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/products/categories`);
+    const response = await fetch(`${apiEndPointURL}/products/categories`);
     return response.json();
   } catch (error) {
     throw new Error("Fetch Failed");
@@ -21,7 +23,7 @@ export const fetchCategories = async (): Promise<string[]> => {
  */
 export const fetchAllProducts = async (): Promise<{ products: IProduct[] }> => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/products`);
+    const response = await fetch(`${apiEndPointURL}/products`);
     return response.json();
   } catch (error) {
     throw new Error("Fetch Failed");
@@ -41,7 +43,7 @@ export const fetchProductsByCategory = async ({
 }): Promise<{ products: IProduct[] }> => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/products/category/${category}`
+      `${apiEndPointURL}/products/category/${category}`
     );
     return response.json();
   } catch (error) {
