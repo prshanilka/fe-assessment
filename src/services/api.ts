@@ -1,12 +1,13 @@
 import { IProduct } from "@/interfaces/product.interface";
 
+const apiEndPointURL =
+  import.meta.env.VITE_API_ENDPOINT || "https://dummyjson.com";
+
 /**
  * Fetches all available categories of products from the API.
  * @returns {Promise<string[]>} A promise that resolves to an array of strings representing categories.
  * @throws {Error} If the fetch operation fails.
  */
-const apiEndPointURL =
-  import.meta.env.VITE_API_ENDPOINT || "https://dummyjson.com";
 export const fetchCategories = async (): Promise<string[]> => {
   try {
     const response = await fetch(`${apiEndPointURL}/products/categories`);
