@@ -16,6 +16,7 @@ export interface IFilterFormProps {
     selectedCategoryProducts: IProduct[];
     selectedProductIDs: number[];
   };
+  loading: boolean;
 }
 
 export interface IFormValues {

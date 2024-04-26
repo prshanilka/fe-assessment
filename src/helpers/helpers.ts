@@ -1,16 +1,16 @@
 import { IProduct } from "@/interfaces/product.interface";
 import Highcharts from "highcharts";
 
-/**
- * Converts a category string to human-readable format.
- * @param {string} category - The category string to convert.
- * @returns {string} The human-readable category string.
- */
-export const categoryToHumanReadable = (category: string): string => {
-  const words = category.split("-");
-  words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
-  return words.join(" ");
-};
+// /**
+//  * Converts a category string to human-readable format.
+//  * @param {string} category - The category string to convert.
+//  * @returns {string} The human-readable category string.
+//  */
+// export const categoryToHumanReadable = (category: string): string => {
+//   const words = category.split("-");
+//   words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+//   return words.join(" ");
+// };
 
 /**
  * Generates Highcharts options for a bar chart.
@@ -22,7 +22,6 @@ export const generateBarChartOptions = (
   products: IProduct[],
   category: string
 ): Highcharts.Options => {
-  const categoryName = categoryToHumanReadable(category);
   return {
     chart: {
       type: "column",
@@ -41,7 +40,7 @@ export const generateBarChartOptions = (
     yAxis: {
       min: 0,
       title: {
-        text: categoryName,
+        text: category,
       },
     },
 
@@ -56,7 +55,7 @@ export const generateBarChartOptions = (
     series: [
       {
         type: "column",
-        name: categoryToHumanReadable(category),
+        name: category,
         data: products.map((product) => product.price),
       },
     ],
@@ -78,7 +77,7 @@ export const generatePieChartOptionsForCategory = (
       type: "pie",
     },
     title: {
-      text: `Stock Quantity for ${categoryToHumanReadable(category)}`,
+      text: `Stock Quantity for ${category}`,
     },
     plotOptions: {
       pie: {

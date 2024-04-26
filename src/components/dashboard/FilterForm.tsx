@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { IProduct } from "@/interfaces/product.interface";
 import { fetchProductsByCategory } from "@/services/api";
-import { categoryToHumanReadable } from "@/helpers/helpers";
 import "./filter-form.scss";
 import { IFilterFormProps, IFormValues } from "@/interfaces/form.interface";
 
@@ -23,6 +22,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
     selectedCategoryProducts,
     selectedProductIDs,
   },
+  loading = false,
 }) => {
   const [products, setProducts] = useState<IProduct[]>(
     selectedCategoryProducts
@@ -47,6 +47,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
     onSubmit(values.selectedCategory, products, values.selectedProducts);
     actions.setSubmitting(false);
   };
+
   return (
     <Formik<IFormValues>
       initialValues={{
@@ -83,7 +84,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
                   fullWidth
                   id="tags-outlined"
                   options={categories}
-                  getOptionLabel={(option) => categoryToHumanReadable(option)}
+                  getOptionLabel={(option) => option}
                   filterSelectedOptions
                   onChange={(_event, newValue) => {
                     if (newValue) {
@@ -105,6 +106,7 @@ const FilterForm: React.FC<IFilterFormProps> = ({
                       placeholder="Select a Category"
                     />
                   )}
+                  disabled={loading}
                 />
               </FormControl>
             )}
@@ -133,7 +135,9 @@ const FilterForm: React.FC<IFilterFormProps> = ({
                       placeholder="Select products"
                     />
                   )}
-                  disabled={!values.selectedCategory && !products.length}
+                  disabled={
+                    (!values.selectedCategory && !products.length) || loading
+                  }
                 />
               </FormControl>
             )}

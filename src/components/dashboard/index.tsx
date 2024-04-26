@@ -70,6 +70,7 @@ const Dashboard: React.FC = () => {
               selectedCategoryProducts,
               selectedProductIDs,
             }}
+            loading={loading}
           />
         </StyledPaper>
       </Grid>
