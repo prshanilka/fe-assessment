@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FilterForm from "./FilterForm";
-import { fetchCategories, fetchAllProducts } from "@/services/api";
+import { fetchCategories } from "@/services/api";
 import { Grid, Paper, styled } from "@mui/material";
 import { IProduct } from "@/interfaces/product.interface";
 import Chart from "./Chart";
@@ -12,7 +12,6 @@ import {
 import { Loader } from "@/components/Loader";
 
 const Dashboard: React.FC = () => {
-  const [allProducts, setAllProducts] = useState<IProduct[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedCategoryProducts, setSelectedCategoryProducts] = useState<
@@ -23,11 +22,6 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     fetchCategories()
       .then(setCategories)
-      .catch((e) => {
-        throw new Error(e);
-      });
-    fetchAllProducts()
-      .then((product) => setAllProducts(product.products))
       .catch((e) => {
         throw new Error(e);
       });
@@ -104,9 +98,7 @@ const Dashboard: React.FC = () => {
                   )}
                 />
               ) : (
-                <Chart
-                  options={generatePieChartForCategory(allProducts, categories)}
-                />
+                <Chart options={generatePieChartForCategory(categories)} />
               )}
             </>
           )}

@@ -112,27 +112,13 @@ export const generatePieChartOptionsForCategory = (
  * @returns {Highcharts.Options} Highcharts options for the pie chart.
  */
 export const generatePieChartForCategory = (
-  products: IProduct[],
   categories: string[]
 ): Highcharts.Options => {
-  const categoryCountMap: { [key: string]: number } = categories.reduce(
-    (acc, category) => {
-      acc[category as keyof { [key: string]: number }] = 0;
-      return acc;
-    },
-    {} as { [key: string]: number }
-  );
-
-  products.forEach((product) => {
-    const { category } = product;
-    if (category && category in categoryCountMap) {
-      categoryCountMap[category]++;
-    }
-  });
-
-  const data = Object.entries(categoryCountMap).map(([name, y]) => ({
-    name,
-    y,
+  const colors = Highcharts.getOptions().colors || [];
+  const chartData = categories.map((item, index) => ({
+    name: item,
+    y: 1 / categories.length,
+    color: colors[index % colors.length],
   }));
 
   const options: Highcharts.Options = {
@@ -140,23 +126,13 @@ export const generatePieChartForCategory = (
       type: "pie",
     },
     title: {
-      text: `Product count for categories`,
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: "pointer",
-        dataLabels: {
-          enabled: true,
-          format: "<b>{point.name}</b>: {point.y}",
-        },
-      },
+      text: "Category Pie Chart",
     },
     series: [
       {
-        type: "pie",
-        name: "Product count",
-        data,
+        type: "pie", // Specify the chart type for the series
+        name: "categories",
+        data: chartData,
       },
     ],
   };
